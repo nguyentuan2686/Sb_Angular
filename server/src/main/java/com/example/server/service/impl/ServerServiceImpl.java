@@ -32,7 +32,7 @@ public class ServerServiceImpl implements ServerService {
     @Override
     public Server create(Server server) {
         log.info("Saving new server: {}", server.getName());
-        server.setImageUrl(setServerImageUrl());
+//        server.setImageUrl(setServerImageUrl());
         return serverRepository.save(server);
     }
 
@@ -70,7 +70,7 @@ public class ServerServiceImpl implements ServerService {
         log.info("Ping server IP: {}", ipAddress);
         Server server = serverRepository.findByIpAddress(ipAddress);
         InetAddress address = InetAddress.getByName(ipAddress);
-        server.setStatus(address.isReachable(10000) ? Status.SERVER_UP : Status.SERVER_DOWN);
+        server.setStatus(address.isReachable(1000) ? Status.SERVER_UP : Status.SERVER_DOWN);
         serverRepository.save(server);
         return server;
     }
